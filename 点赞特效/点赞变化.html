@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>点赞</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        html {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .black {
+            position: relative;
+            /* height: 100vh; */
+            width: 100%;
+            height: 100%;
+            color: #fff;
+        }
+        
+        @font-face {
+            font-family: 'icomoon';
+            src: url('./font/fonts/icomoon.eot?7kkyc2');
+            src: url('./font/fonts/icomoon.eot?7kkyc2#iefix') format('embedded-opentype'), url('./font/fonts/icomoon.ttf?7kkyc2') format('truetype'), url('./font/fonts/icomoon.woff?7kkyc2') format('woff'), url('./fontfonts/icomoon.svg?7kkyc2#icomoon') format('svg');
+            font-weight: normal;
+            font-style: normal;
+        }
+        
+        .large {
+            position: absolute;
+            font-size: 30px;
+        }
+        
+        i,
+        em {
+            font-style: normal;
+        }
+        
+        .seek {
+            overflow: hidden;
+            font-family: 'icomoon';
+        }
+    </style>
+</head>
+
+<body class="black">
+    <script>
+        var body = document.querySelector('.black');
+
+        var array = [];
+        body.addEventListener('click', function(e) {
+            establish(e);
+            // animate(establish(e));
+            // animate();
+        });
+        var flag = true;
+
+        function getRandom(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        function establish(e) {
+            var gaine1 = document.createElement('div');
+            let sum = getRandom(0, 8);
+            console.log(sum);
+            // console.log(gaine1);
+            gaine1.classList.add('large');
+            if (sum == 0) {
+                gaine1.innerHTML = '<i class="seek"></i>';
+                // sum++;
+            } else if (sum == 1) {
+                gaine1.innerHTML = '<i class="seek"></i>';
+                // sum++;
+            } else if (sum == 2) {
+                gaine1.innerHTML = '<i class="seek"></i>';
+                // sum++;
+            } else if (sum == 3) {
+                gaine1.innerHTML = '<i class="seek"></i>';
+                // sum++;
+            } else if (sum == 4) {
+                gaine1.innerHTML = '<i class="seek"></i>';
+                // sum = 0;
+            } else if (sum == 5) {
+                gaine1.innerHTML = '<i class="seek"></i>';
+                // sum = 0;
+            } else if (sum == 6) {
+                gaine1.innerHTML = '<i class="seek"></i>';
+                // sum = 0;
+            } else if (sum == 7) {
+                gaine1.innerHTML = '<i class="seek"></i>';
+                // sum = 0;
+            } else if (sum == 8) {
+                gaine1.innerHTML = '<i class="seek"></i>';
+                // sum = 0;
+            } else if (sum == 9) {
+                gaine1.innerHTML = '<i class="seek"></i>';
+                // sum = 0;
+            } else if (sum == 10) {
+                gaine1.innerHTML = '<i class="seek"></i>';
+                // sum = 0;
+            }
+            var w = body.innerWidth;
+            var h = body.innerHeight;
+            body.insertBefore(gaine1, body.children[0]);
+            array.push({
+                el: gaine1,
+                // 鼠标点击的坐标
+                top: e.clientY,
+                left: e.clientX,
+                // 生成随机坐标
+                // top: Math.random() * w,
+                // left: Math.random() * h,
+                // top: e.pageY,
+                // left: e.pageX,
+                opacity: 1,
+                scale: 1,
+                color: `rgb(${255*Math.random()},${255*Math.random()},${255*Math.random()})`
+
+            });
+            // if()
+            remove();
+        }
+
+        function remove() {
+            for (var i = 0; i < array.length; i++) {
+                if (array[i].opacity <= 0) {
+                    body.removeChild(array[i].el);
+                    array.splice(i, 1);
+                    return;
+                }
+                array[i].top--;
+                array[i].opacity -= 0.01;
+                array[i].scale += 0.1;
+                array[i].el.style.cssText = `
+                top:${array[i].top}px;
+                left:${array[i].left}px;
+                color:${array[i].color};
+                opacity:${array[i].opacity};          
+                transform: scale(${array[i].scale});`
+            }
+            window.requestAnimationFrame(remove);
+        }
+    </script>
+</body>
+
+</html>
