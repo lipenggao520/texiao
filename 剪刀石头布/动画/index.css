@@ -1,0 +1,37 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body,
+html {
+    width: 100%;
+    height: 100%;
+    background-color: #fefefe;
+}
+
+body {
+    background: url(./timg.jpg) no-repeat;
+    background-size: 100% 100%;
+}
+
+.box {
+    /* position: relative; */
+    width: 200px;
+    height: 200px;
+    /* background-color: ping; */
+    /* box */
+    /* transform:  */
+}
+
+.second {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    /* width: 10px;
+    height: 10px; */
+    border-radius: 50%;
+    /* color: rgba() */
+    box-shadow: 0 0 20px 20px pink;
+}

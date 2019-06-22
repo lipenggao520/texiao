@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>抽奖</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            position: relative;
+            width: 900px;
+            height: 600px;
+            margin: 100px auto;
+        }
+        
+        .container-one {
+            height: 200px;
+            width: 100%;
+        }
+        
+        .container-one-one,
+        .container-one-tow,
+        .container-one-three,
+        .container-tow-one,
+        .container-tow-tow,
+        .container-tow-three,
+        .container-three-one,
+        .container-three-tow,
+        .container-three-three {
+            width: 300px;
+            height: 200px;
+            font-size: 30px;
+            text-align: center;
+            line-height: 200px;
+            box-sizing: border-box;
+        }
+        /* color: #ED52F4; */
+        
+        .container-one-one,
+        .container-one-tow,
+        .container-one-three,
+        .container-tow-one,
+        .container-tow-three,
+        .container-three-one,
+        .container-three-tow,
+        .container-three-three {
+            font-weight: 700;
+            /* background: -webkit-gradient(linear, left center, right center, from(#ED52F4), to(#2696DF)); */
+            /* 背景色渐变 */
+            /* -webkit-background-clip: text; */
+            /* 规定背景的划分区域 */
+            /* -webkit-text-fill-color: transparent; */
+            /* 防止字体颜色覆盖 */
+            border: 1px solid;
+            border-image: -webkit-linear-gradient(left, pink 0%, blue 30%, yellow 60%, hotpink 90%) 10;
+        }
+        
+        .container-one-one {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        
+        .container-one-tow {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .container-one-three {
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+        
+        .container-tow-one {
+            position: absolute;
+            top: 50%;
+            right: 0;
+            transform: translateY(-50%);
+        }
+        
+        .container-tow-three {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+        }
+        
+        .container-three-one {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .container-three-tow {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+        }
+        
+        .container-three-three {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .container-tow-tow {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 50px;
+            font-weight: 500;
+            outline: none;
+            background-image: -moz-linear-gradient(left, #9DB5E5 0%, pink 50%, #D4FAEF 100%);
+            background-image: -webkit-linear-gradient(left, #9DB5E5 0%, pink 50%, #D4FAEF 100%);
+            background-image: -o-linear-gradient(left, #9DB5E5 0%, pink 50%, #D4FAEF 100%);
+            background-image: -ms-linear-gradient(left, #9DB5E5 0%, pink 50%, #D4FAEF 100%);
+            background-image: linear-gradient(left bottom, #9DB5E5 0%, pink 50%, #D4FAEF 100%);
+            color: #ED52F4;
+            /* -webkit-text-fill-color: transparent; */
+        }
+        
+        .color {
+            background: -webkit-gradient(linear, left center, right center, from(#ED52F4), to(#2696DF));
+            /* 背景色渐变 */
+            -webkit-background-clip: text;
+            /* 规定背景的划分区域 */
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .default {
+            background: url(./2.jpeg) no-repeat;
+            background-size: 100% 100%;
+            color: rgb(227, 44, 236);
+        }
+        
+        .container img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="container-one">
+            <div class="container-one-one default item">
+                放假在家敲代码
+            </div>
+            <div class="container-one-tow color item">放假在家复习</div>
+            <div class="container-one-three color item">放假在家看视频</div>
+        </div>
+        <div class="container-one">
+            <div class="container-tow-one color item">放假在家看书</div>
+            <button class="container-tow-tow">开始</button>
+            <div class="container-tow-three color item">放假去步步高</div>
+        </div>
+        <div class="container-one">
+            <div class="container-three-one color item">放假在家敲代码</div>
+            <div class="container-three-tow color item">放假去看电影</div>
+            <div class="container-three-three color item">放假在家复习</div>
+        </div>
+        <img src="./1.jpg" alt="">
+    </div>
+    <script>
+        // 获取外面的最大的盒子元素
+        let container = document.querySelector('.container');
+        let container_item = container.querySelectorAll('.item');
+        // 0 获取第一个小盒子元素
+        let container_one_one = container.querySelector('.container-one-one');
+        // 1获取第二个小盒子元素
+        let container_one_tow = container.querySelector('.container-one-tow');
+        // 2获取第三个小盒子元素
+        let container_one_three = container.querySelector('.container-one-three');
+        // 3获取第四个小盒子元素
+        let container_tow_one = container.querySelector('.container-tow-one');
+        // 4获取第五个小盒子元素
+        let container_tow_three = container.querySelector('.container-tow-three');
+        // 5获取第刘个小盒子元素
+        let container_three_one = container.querySelector('.container-three-one');
+        // 6获取第七个小盒子元素
+        let container_three_tow = container.querySelector('.container-three-tow');
+        // 7获取第八个小盒子元素
+        let container_three_three = container.querySelector('.container-three-three');
+        // 获取开始按钮元素
+        let btn = container.querySelector('.container-tow-tow');
+
+        var num = 0;
+        var sun = 0;
+        var stopClock = 100;
+        var timer = null;
+        // 给开始按注册点击事件
+        btn.addEventListener('click', function() {
+            setNum();
+        });
+
+        function getRandom(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        function setNum() {
+            clearInterval(timer);
+            // 
+            // 随机生成1到100的随机数
+            var random = getRandom(50, 130);
+            // 开始一个定时间
+            var stopClock = 100;
+            var timer = setInterval(function() {
+                // 先遍历container_item元素
+                for (var i = 0; i < container_item.length; i++) {
+                    container_item[i].classList.add('color');
+                    container_item[i].classList.remove('default');
+                }
+                // 当num等等于0的时候第 零 个盒子添加default类名.同事删除color类名
+                if (num == 0) {
+                    container_one_one.classList.add('default');
+                    container_one_one.classList.remove('color');
+                    num++;
+                    sun++;
+                } else if (num == 1) {
+                    // 当num等等于0的时候第 一 个盒子添加default类名.同事删除color类名
+                    container_one_tow.classList.add('default');
+                    container_one_tow.classList.remove('color');
+                    num++;
+                } else if (num == 2) {
+                    // 当num等等于0的时候第 二 个盒子添加default类名.同事删除color类名
+                    container_one_three.classList.add('default');
+                    container_one_three.classList.remove('color');
+                    num++;
+                    sun++;
+                } else if (num == 3) {
+                    // 当num等等于0的时候第 三 个盒子添加default类名.同事删除color类名
+                    container_tow_one.classList.add('default');
+                    container_tow_one.classList.remove('color');
+                    num++;
+                    sun++;
+                } else if (num == 4) {
+                    // 当num等等于0的时候第 四 个盒子添加default类名.同事删除color类名
+                    container_tow_three.classList.add('default');
+                    container_tow_three.classList.remove('color');
+                    num++;
+                    sun++;
+                } else if (num == 5) {
+                    // 当num等等于0的时候第 五 个盒子添加default类名.同事删除color类名
+                    container_three_one.classList.add('default');
+                    container_three_one.classList.remove('color');
+                    num++;
+                    sun++;
+                } else if (num == 6) {
+                    // 当num等等于0的时候第 六 个盒子添加default类名.同事删除color类名
+                    container_three_tow.classList.add('default');
+                    container_three_tow.classList.remove('color');
+                    num++;
+                    sun++;
+                } else if (num == 7) {
+                    // 当num等等于0的时候第 七 个盒子添加default类名.同事删除color类名
+                    container_three_three.classList.add('default');
+                    container_three_three.classList.remove('color');
+                    num = 0;
+                    sun++;
+                }
+                if (sun == random) {
+                    // 当sun等等于生成的随机数的时候清楚定时间。同时num遍变量和sun变量重新复值。
+                    // 当下次再次点击的时候。从新从第一个开始
+                    clearInterval(timer);
+                    num = 0;
+                    sun = 0;
+                }
+            }, stopClock);
+
+        }
+    </script>
+</body>
+
+</html>

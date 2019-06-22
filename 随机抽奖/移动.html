@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+        }
+        
+        canvas {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas class="aCanvas"></canvas>
+    <script type="text/javascript">
+        var aCanvas = document.querySelector(".aCanvas");
+
+        var cx = aCanvas.getContext('2d'); //返回一个表示用来绘制的环境类型的环境 二维绘图
+        //选择几个自己喜欢的颜色，存在一个数组里面
+        var Color = [
+            "#99cccc", "#FFCC99", "#FFCCCC", "#0099CC", "#FF9999", "#FFFF66", "#FF6666", "#FFFF00", "#99CCFF"
+        ];
+
+        { //电脑的一些基本信息
+            var w = innerWidth; //电脑屏幕的宽
+            var h = innerHeight; //电脑屏幕的高
+            aCanvas.width = w; //定义画布的宽
+            aCanvas.height = h; //定义画布的高
+        }
+
+        //定义一个随机函数
+        function Random(min, max) {
+            return Math.random() * (max - min) + min;
+        }
+
+        function Bubble() {};
+        //定义一个Bubble的一个对象
+        Bubble.prototype = {
+            //基本属性
+            init: function() {
+                this.x = Random(0, w); //新创建的小球的 x 坐标  范围：0-w
+                this.y = Random(0, h); //新创建的小球的 y 坐标  范围：0-h
+                this.r = Random(1, 1); //新创建的小球的 半径
+                this.color = Color[Math.floor(Random(0, 6))]; //新创建的小球的 颜色   floor向上取整
+                this.vX = Random(-1, 1); //该小球在x轴方向的速度
+                this.vY = Random(-1, 1); //该小球在y轴方向的速度
+            },
+            //绘画属性
+            draw: function() {
+                cx.beginPath(); //把画笔抬起来
+                // cx.clearRect(0,0,w,h);//擦除canvas上矩形区域  需要矩形的左上角坐标 X Y 以及矩形的 宽 高。参数：（x,y,width,height）
+                //代表画笔的颜色
+                cx.fillStyle = this.color;
+                //构思绘制一个图形
+                cx.arc(this.x, this.y, this.r, 0, Math.PI * 2); //圆心坐标 X Y 半径
+                //下笔作画
+                cx.fill();
+            },
+            //球的运动属性
+            move: function() {
+                this.x += this.vX;
+                this.y += this.vY;
+                if (this.x - this.r < 0 || this.x + this.r > w) //挡球碰到屏幕x轴运动边缘就反弹
+                    this.vX = -this.vX;
+                if (this.y - this.r < 0 || this.y + this.r > h) //挡球碰到屏幕y轴运动边缘就反弹
+                    this.vY = -this.vY;
+                this.draw(); //每次运动之后就要进入画的的下一帧
+            }
+        };
+        //创建Bubble对象的实例  ->  创建一个小球
+        //用for循环可以穿件多个小球  将它包含在一个函数里面，方便多次使用
+        //创建一个数组存放残生的小球球
+        var arr = new Array();
+
+        function createBubble(num) {
+            for (var i = 0; i < num; i++) {
+                var bubble = new Bubble(); //创建一个新的小球
+                arr.push(bubble); //将每次创建的小球丢进数组里
+                bubble.init();
+                bubble.draw();
+            }
+        }
+        createBubble(666); //创建666个小球
+        //
+        setInterval(function() { //实现画中帧的播放
+            cx.clearRect(0, 0, w, h); //每次播放新的下一帧之前要对上一帧进行清除工作
+            for (var item of arr) {
+                item.move(); //移动
+            }
+        }, 1000 / 100); //1000/100代表是1000ms 100张   ->   1s 100张
+    </script>
+</body>
+
+</html>

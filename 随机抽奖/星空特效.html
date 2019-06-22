@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        .canvas {
+            background-color: #000;
+            display: block;
+            /* width: 100%;
+            height: 100%; */
+        }
+    </style>
+</head>
+
+<body>
+    <canvas class="canvas"></canvas>
+
+    <script>
+        //  javascript 基于原型的动态解释类语言
+        // 平时看到的javascript .都是ES的内容，只不过js继承了原来的ES的特性
+        // js为web为浏览器提供了一些封装好的方法
+        // 1.相应用户的操作点击 移入 滑入滑出 键盘
+        // 2.操作dom bom 曾珊改查
+        // 3. 数据交互 ajax json jsonp 表单验证 正则
+        // 4.面向对象 原型 原型链  继承 多态
+        // 5. 深入底层 ECMAScript nodeJs Vue react JQ 
+
+        // 当一个页面超过3个特效。就用canvas元素
+        var canvas = document.querySelector('.canvas');
+        var ext = canvas.getContext('2d');
+        var num = 200;
+        var w, h;
+        var data = [];
+        // 页面初始化
+        init();
+
+        function init() {
+            w = canvas.width = window.innerWidth;
+            h = canvas.height = window.innerHeight;
+            for (var i = 0; i < num; i++) {
+                data[i] = {
+                    x: Math.random() * w,
+                    y: Math.random() * h,
+                    cX: Math.random() * 0.6 - 0.3,
+                    cY: Math.random() * 0.6 - 0.3
+                };
+                Cricle(data[i].x, data[i].y);
+                // console.log(Math.random() * 0.6 - 0.3);
+                // Cricle();
+            }
+        }
+        // x = getRandomNum();
+        // y = getRandomNum();
+        // 绘制粉色小点
+        function Cricle(x, y) {
+            ext.save();
+            ext.fillStyle = 'pink';
+            ext.beginPath();
+            // x = getRandomNum();
+            // y = getRandomNum();
+            ext.arc(x, y, 5, Math.PI * 2, false);
+            ext.closePath();
+            ext.fill();
+            ext.restore();
+
+        }
+
+        // function getRandomNum() {
+        //     return Math.random() * w;
+        // }
+
+        // draw();
+
+        function draw() {
+            ext.clearRect(0, 0, w, h);
+            for (var i = 0; i < num; i++) {
+                data[i].x += data[i].cX;
+                data[i].y += data[i].cY;
+                Cricle(data[i].x, data[i].y);
+                console.log(data[i].x);
+
+            }
+
+        };
+        setInterval(function() {
+            draw();
+        }, 13);
+    </script>
+</body>
+
+</html>
